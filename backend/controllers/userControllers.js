@@ -19,9 +19,9 @@ const authUser = async (req, res) => {
     if (!match) {
       return res.status(401).json({ message: 'Invalid email or password.' })
     }
-    //generate jwt token
-    const token = jwt.sign({ _id: user._id }, process.env.JWT_TOKEN_SECRET);
     //if passwords match
+    //generate jwt token
+    const token = jwt.sign({ _id: user._id }, process.env.JWT_TOKEN_SECRET)
     res.cookie('token', token, {
       httpOnly: true,
       secure: process.env.NODE_ENV !== 'development', // site has to be https
@@ -45,6 +45,14 @@ const registerUser = async (req, res) => {
     //hash plain password
     const hashedPassword = await bcrypt.hash(password, saltRounds)
     const newUser = await User.create({ name, email, password: hashedPassword })
+    //generate jwt token
+    const token = jwt.sign({ _id: newUser._id }, process.env.JWT_TOKEN_SECRET)
+    res.cookie('token', token, {
+      httpOnly: true,
+      secure: process.env.NODE_ENV !== 'development', // site has to be https
+      samesite: 'strict', // prevent csrf attack
+      maxAge: 7 * 60 * 60 * 1000  // 7 days
+    })
     res.status(200).json({ _id: newUser._id, name: newUser.name, email: newUser.email })
   } catch (error) {
     res.status(400).json({ message: 'Invalid user data.' })
