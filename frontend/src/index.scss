@@ -10,6 +10,7 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  background-color: #bbd0ff;
 }
 
 a {
@@ -54,9 +55,34 @@ code {
   }
 }
 
-main {
-  height: calc(100vh - 60px);
-  display: flex;
-  justify-content: center;
-  align-items: center;
+.form {
+  position: relative;
+  margin: auto;
+  margin-top: 5rem;
+  width: 100%;
+  max-width: 360px;
+  min-height: 450px;
+  padding: 1.5rem 2rem 4rem 2rem;
+  border-radius: 5px;
+  background-color: white;
+
+  .form-msg {
+    margin-top: 8px;
+    font-size: 13px;
+    text-align: start;
+    font-weight: 500;
+    color: #D8000C;
+  }
+
+  .redirect-msg {
+    position: absolute;
+    bottom: 15px;
+    right: 15px;
+    font-size: 13px;
+
+    a {
+      color: #4895ef;
+      font-weight: 500;
+    }
+  }
 }
